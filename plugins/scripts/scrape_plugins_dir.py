@@ -3,10 +3,10 @@ import sys
 from path import path
 from django.core.exceptions import ObjectDoesNotExist
 
-project_root = path(__file__).parent.parent
+project_root = path(__file__).parent.parent.parent
 sys.path.append(project_root)
 
-from repository.models import PluginVersion, Plugin, cre_plugin_info
+from plugins.models import PluginVersion, Plugin, cre_plugin_info
 
 
 def process_plugin_archive(plugin_path):
@@ -18,7 +18,7 @@ def process_plugin_archive(plugin_path):
         plugin, created = Plugin.objects.get_or_create(name=match.group(
                 'name'))
         plugin_version, created = PluginVersion.objects.get_or_create(
-                plugin=plugin, major=major, minor=minor, micro=micro)
+                package=plugin, major=major, minor=minor, micro=micro)
         if created:
             print 'Added Plugin %s version %s.%s.%s' % (plugin.name, 
                     plugin_version.major, plugin_version.minor,
@@ -33,5 +33,4 @@ def scan_for_plugins(plugins_path):
 
 
 if __name__ == '__main__':
-    project_root = path(__file__).parent.parent
     scan_for_plugins(project_root.joinpath('plugin_data'))

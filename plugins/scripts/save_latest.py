@@ -1,10 +1,10 @@
 import sys
 from path import path
 
-project_root = path(__file__).parent.parent
+project_root = path(__file__).parent.parent.parent
 sys.path.append(project_root)
 
-from plugin_repository import PluginRepository
+from plugins.proxy import PluginRepository
 
 
 def parse_args():
@@ -30,6 +30,6 @@ Download latest version of specified plugin.""",
 if __name__ == '__main__':
     args = parse_args()
     p = PluginRepository(args.server_url)
-    p.download_latest(args.plugin_name, args.output_dir)
     print p.latest_version(args.plugin_name)
     print p.versions(args.plugin_name)
+    p.download_latest(args.plugin_name, args.output_dir)

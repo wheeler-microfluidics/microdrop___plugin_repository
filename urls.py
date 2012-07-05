@@ -1,9 +1,9 @@
 from django.conf.urls.defaults import *
 from django_jsonrpc import jsonrpc_site
 
-import repository.views
-from repository.models import PluginVersion, Plugin
-import repository.app_settings
+import plugins.views
+from plugins.models import PluginVersion, Plugin
+import plugins.app_settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -26,6 +26,6 @@ urlpatterns = patterns('',
     url(r'^json/$', jsonrpc_site.dispatch, name='jsonrpc_mountpoint'),
     (r'^json/(?P<method>[a-zA-Z0-9.-_]+)$', jsonrpc_site.dispatch),
     (r'^plugin_data/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': repository.app_settings.PLUGIN_DATA_DIR,
+            {'document_root': plugins.app_settings.PLUGIN_DATA_DIR,
                     'show_indexes': True}),
 )
