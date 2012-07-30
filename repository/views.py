@@ -8,7 +8,8 @@ def api_version(request):
 
 #@jsonrpc_method('available_packages')
 def available_packages(package_class, request):
-    return [p.name for p in package_class.objects.order_by('name')]
+    return [p.name for p in package_class.objects.filter(public=True).order_by(
+            'name')]
 
 
 #@jsonrpc_method('package_latest_version')

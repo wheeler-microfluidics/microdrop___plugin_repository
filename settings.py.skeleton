@@ -86,6 +86,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+print 'TEMPLATE_DIRS:', TEMPLATE_DIRS
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -93,10 +94,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'django_jsonrpc',
+    'jsonrpc',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'repository',
     'plugins',
+    'application',
+    'django_jsonrpc',
 )

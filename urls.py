@@ -3,10 +3,16 @@ from django_jsonrpc import jsonrpc_site
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-admin.autodiscover()
 
 from plugins.models import PluginVersion, Plugin
 from application.models import AppVersion, App
+
+
+admin.autodiscover()
+admin.site.register(PluginVersion)
+admin.site.register(Plugin)
+admin.site.register(AppVersion)
+admin.site.register(App)
 
 
 urlpatterns = patterns('',

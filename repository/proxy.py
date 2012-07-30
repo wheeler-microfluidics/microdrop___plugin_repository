@@ -37,12 +37,6 @@ class PackageRepository(object):
         return self.proxy.package_url(package_name, package_version)
 
     def latest_package_url(self, package_name):
-        available_packages = self.proxy.available_packages()
-        if package_name not in available_packages:
-            raise ValueError, '''\
-    package %s is not available.
-    Available packages include: %s''' % (package_name, ', '.join(
-                    available_packages))
         latest_version = self.proxy.package_latest_version(
                 package_name)
         package_url = self.proxy.package_url(package_name,
