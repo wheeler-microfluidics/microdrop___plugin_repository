@@ -18,11 +18,11 @@ class PluginVersion(Version):
 
     def url(self):
         plugin_path = self.path()
-        plugin_url = path(app_settings.PLUGIN_DATA_URL)
+        plugin_url = path(app_settings.DATA_URL)
         return plugin_url.joinpath(plugin_path.name)
 
     def path(self):
-        plugin_data_dir = path(app_settings.PLUGIN_DATA_DIR)
+        plugin_data_dir = path(app_settings.DATA_DIR)
         plugin_filename = '%s-%s.%s.%s.tar.gz' % (self.package.name, self.major,
                 self.minor, self.micro)
         plugin_path = plugin_data_dir.joinpath(plugin_filename)

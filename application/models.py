@@ -18,11 +18,11 @@ class AppVersion(Version):
 
     def url(self):
         app_path = self.path()
-        app_url = path(app_settings.APP_DATA_URL)
+        app_url = path(app_settings.DATA_URL)
         return app_url.joinpath(app_path.name)
 
     def path(self):
-        app_data_dir = path(app_settings.APP_DATA_DIR)
+        app_data_dir = path(app_settings.DATA_DIR)
         app_filename = '%s-%s.%s.%s.msi' % (self.package.name, self.major,
                 self.minor, self.micro)
         app_path = app_data_dir.joinpath(app_filename)
