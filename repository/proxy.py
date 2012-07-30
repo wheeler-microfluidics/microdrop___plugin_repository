@@ -33,8 +33,10 @@ class PackageRepository(object):
     def versions(self, package_name):
         return self.proxy.package_versions(package_name)
 
-    def download_latest(self, package_name, output_dir):
-        output_dir = path(output_dir)
+    def package_url(self, package_name, package_version):
+        return self.proxy.package_url(package_name, package_version)
+
+    def latest_package_url(self, package_name):
         available_packages = self.proxy.available_packages()
         if package_name not in available_packages:
             raise ValueError, '''\
@@ -45,7 +47,11 @@ class PackageRepository(object):
                 package_name)
         package_url = self.proxy.package_url(package_name,
                 latest_version)
+        return package_url
 
+    def download_latest(self, package_name, output_dir):
+        output_dir = path(output_dir)
+        package_url = self.latest_package_url(package_name)
         package_full_url = '%s%s' % (self.server_url, package_url)
         data = urllib.urlopen(package_full_url).read()
         local_path = output_dir.joinpath(path(package_url).name)

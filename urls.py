@@ -5,6 +5,10 @@ import plugins.views
 from plugins.models import PluginVersion, Plugin
 import plugins.app_settings
 
+import application.views
+from application.models import AppVersion, App
+import application.app_settings
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 
@@ -12,6 +16,8 @@ from django.contrib import admin
 admin.autodiscover()
 admin.site.register(PluginVersion)
 admin.site.register(Plugin)
+admin.site.register(AppVersion)
+admin.site.register(App)
 
 urlpatterns = patterns('',
     # Example:
@@ -27,5 +33,8 @@ urlpatterns = patterns('',
     (r'^json/(?P<method>[a-zA-Z0-9.-_]+)$', jsonrpc_site.dispatch),
     (r'^plugin_data/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': plugins.app_settings.PLUGIN_DATA_DIR,
+                    'show_indexes': True}),
+    (r'^app_data/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': application.app_settings.APP_DATA_DIR,
                     'show_indexes': True}),
 )

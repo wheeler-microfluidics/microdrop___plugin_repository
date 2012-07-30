@@ -1,0 +1,7 @@
+from path import path
+
+import settings
+
+
+APP_DATA_DIR = settings.project_root.joinpath('app_data')
+APP_DATA_URL = '/app_data'

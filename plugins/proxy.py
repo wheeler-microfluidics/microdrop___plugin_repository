@@ -1,4 +1,4 @@
-from repository.proxy import PackageRepository
+from ..repository.proxy import PackageRepository
 
 
 class PluginRepository(PackageRepository):
