@@ -23,6 +23,5 @@ def package_versions(request, package_name):
 
 @jsonrpc_method('plugins.package_url')
 def package_url(request, package_name, version):
-    print '[package_url] package_name=%s version=%s' % (package_name, version)
     return repository.views.package_url(version_class, request, package_name,
             version)

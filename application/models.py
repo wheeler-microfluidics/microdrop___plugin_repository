@@ -28,7 +28,7 @@ class AppVersion(Version):
         app_path = app_data_dir.joinpath(app_filename)
 
         if not app_path.isfile():
-            raise ValueError, 'Application not found: %s'
+            raise ValueError, 'Application not found: %s' % app_path
         else:
             return app_path
 

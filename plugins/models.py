@@ -28,7 +28,7 @@ class PluginVersion(Version):
         plugin_path = plugin_data_dir.joinpath(plugin_filename)
 
         if not plugin_path.isfile():
-            raise ValueError, 'Plugin not found: %s'
+            raise ValueError, 'Plugin not found: %s' % plugin_path
         else:
             return plugin_path
 
