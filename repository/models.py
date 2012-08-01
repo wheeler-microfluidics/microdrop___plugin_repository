@@ -8,6 +8,7 @@ class Version(models.Model):
     major = models.IntegerField()
     minor = models.IntegerField()
     micro = models.IntegerField()
+    publish = models.BooleanField(default=False)
 
     def url(self):
         raise NotImplementedError

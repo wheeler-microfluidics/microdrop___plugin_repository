@@ -14,16 +14,16 @@ def available_packages(package_class, request):
 
 #@jsonrpc_method('package_latest_version')
 def package_latest_version(version_class, request, package_name):
-    package_version = version_class.objects.filter(package__name=package_name
-            ).order_by('-major', '-minor', '-micro')[0]
+    package_version = version_class.objects.filter(publish=True,
+            package__name=package_name).order_by('-major', '-minor', '-micro')[0]
     return {'major': package_version.major, 'minor': package_version.minor,
             'micro': package_version.micro}
 
 
 #@jsonrpc_method('package_versions')
 def package_versions(version_class, request, package_name):
-    package_versions = version_class.objects.filter(package__name=package_name
-            ).order_by('major', 'minor', 'micro')
+    package_versions = version_class.objects.filter(publish=True,
+            package__name=package_name).order_by('major', 'minor', 'micro')
     return [{'major': version.major, 'minor': version.minor,
             'micro': version.micro} for version in package_versions]
 
