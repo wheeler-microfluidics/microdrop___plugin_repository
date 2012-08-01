@@ -20,6 +20,10 @@ class Version(models.Model):
         abstract = True
         ordering = ['major', 'minor', 'micro']
 
+    def __unicode__(self):
+        return u'%s (%s, %s, %s)' % (self.package.name, self.major, self.micro,
+                self.minor)
+
 
 class Package(models.Model):
     name = models.CharField(max_length=200)
@@ -28,3 +32,6 @@ class Package(models.Model):
     class Meta:
         abstract = True
         ordering = ['name']
+
+    def __unicode__(self):
+        return unicode(self.name)
