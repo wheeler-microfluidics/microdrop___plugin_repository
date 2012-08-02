@@ -104,3 +104,9 @@ INSTALLED_APPS = (
     'application',
     'django_jsonrpc',
 )
+
+# SITE_ROOT should be set to the url path to the root of the site.
+# For example with:
+#    http://myserver.com/update/
+# the url path to the root of the site would be '/update/'
+# SITE_ROOT = '/'

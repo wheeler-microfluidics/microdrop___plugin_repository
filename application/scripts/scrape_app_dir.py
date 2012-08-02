@@ -35,4 +35,5 @@ def scan_for_apps(apps_path):
 
 if __name__ == '__main__':
     app_data_dir = app_settings.DATA_DIR
+    print app_data_dir
     scan_for_apps(app_data_dir)

@@ -1,4 +1,7 @@
 from django_jsonrpc import jsonrpc_method
+from django.shortcuts import redirect
+
+import settings
 
 
 @jsonrpc_method('api_version')
@@ -34,3 +37,11 @@ def package_url(version_class, request, package_name, version):
             major=version['major'], minor=version['minor'],
                     micro=version['micro'])
     return str(package_version.url())
+
+
+def redirect_to_latest(version_class, request, package_name):
+    latest_version = package_latest_version(version_class, request, package_name)
+    latest_url = package_url(version_class, request, package_name, latest_version)
+    if latest_url.startswith('/'):
+        latest_url = latest_url[1:]
+    return redirect(getattr(settings, 'SITE_ROOT', '/') + latest_url)

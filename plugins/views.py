@@ -1,6 +1,6 @@
 from django_jsonrpc import jsonrpc_method
-from django.shortcuts import redirect
 
+import settings
 from .models import Plugin as package_class, PluginVersion as version_class
 
 import repository.views 
@@ -29,5 +29,5 @@ def package_url(request, package_name, version):
 
 
 def redirect_to_latest(request, package_name):
-    latest_version = package_latest_version(request, package_name)
-    return redirect(package_url(request, package_name, latest_version))
+    return repository.views.redirect_to_latest(version_class, request,
+            package_name)
