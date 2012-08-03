@@ -21,7 +21,7 @@ class Version(models.Model):
         ordering = ['major', 'minor', 'micro']
 
     def __unicode__(self):
-        return u'%s (%s, %s, %s)' % (self.package.name, self.major, self.micro,
+        return u'%s (%s, %s, %s)' % (self.package, self.major, self.micro,
                 self.minor)
 
 

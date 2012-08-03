@@ -34,4 +34,7 @@ class PluginVersion(Version):
 
 
 class Plugin(Package):
-    pass
+    plugin_name = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return u'[%s] %s' % (self.name, self.plugin_name)
