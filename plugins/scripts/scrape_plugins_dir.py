@@ -27,6 +27,7 @@ def process_plugin_archive(plugin_path):
         plugin, created = Plugin.objects.get_or_create(name=match.group(
                 'name'))
         plugin.plugin_name = plugin_name
+	plugin.save()
         plugin_version, created = PluginVersion.objects.get_or_create(
                 package=plugin, major=major, minor=minor, micro=micro)
         if created:
@@ -36,7 +37,7 @@ def process_plugin_archive(plugin_path):
 
 
 def scan_for_plugins(plugins_path):
-    plugin_files = plugins_path.files('*.tar.gz')
+    plugin_files = sorted(plugins_path.files('*.tar.gz'))
 
     for plugin_path in plugin_files:
         try:
