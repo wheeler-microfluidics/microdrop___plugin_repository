@@ -9,8 +9,6 @@ from application.models import AppVersion, App
 
 
 admin.autodiscover()
-admin.site.register(PluginVersion)
-admin.site.register(Plugin)
 admin.site.register(AppVersion)
 admin.site.register(App)
 
