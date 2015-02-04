@@ -5,7 +5,7 @@ from django_jsonrpc import jsonrpc_method
 
 import settings
 from .models import Plugin as package_class, PluginVersion as version_class
-import repository.views 
+import repository.views
 
 
 @jsonrpc_method('plugins.available_packages')
@@ -35,7 +35,18 @@ def plugin_name(request, package_name):
 @jsonrpc_method('plugins.package_latest_version')
 def package_latest_version(request, package_name):
     return repository.views.package_latest_version(version_class, request,
-            package_name)
+                                                   package_name)
+
+
+@jsonrpc_method('plugins.package_latest_version_for_app_version')
+def package_latest_version_for_app_version(request, package_name,
+                                           app_version):
+    '''
+    Return the latest package version for the specified app version.
+    '''
+    return repository.views.package_latest_version(version_class, request,
+                                                   package_name,
+                                                   app_version['major'])
 
 
 @jsonrpc_method('plugins.package_versions')
@@ -46,9 +57,12 @@ def package_versions(request, package_name):
 @jsonrpc_method('plugins.package_url')
 def package_url(request, package_name, version):
     return repository.views.package_url(version_class, request, package_name,
-            version)
+                                        version)
 
 
-def redirect_to_latest(request, package_name):
+def redirect_to_latest(request, package_name, app_major=0, app_minor=0,
+                       app_micro=0):
+    if app_major is None:
+        app_major = 0
     return repository.views.redirect_to_latest(version_class, request,
-            package_name)
+                                               package_name, app_major)
