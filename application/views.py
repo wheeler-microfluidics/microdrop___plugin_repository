@@ -30,6 +30,6 @@ def package_url(request, package_name, version):
 def redirect_to_latest(request, package_name, app_major=0, app_minor=0,
                        app_micro=0):
     if app_major is None:
-        app_major = 0
+        app_major = 1
     return repository.views.redirect_to_latest(version_class, request,
             package_name, app_major)
