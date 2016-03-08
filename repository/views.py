@@ -60,17 +60,20 @@ def redirect_to_latest(version_class, request, package_name, major_version=0):
 
 
 RELEASES_SCHEMA = {
-    'type': 'object',
-    'additionalProperties': {
-        'type': 'object',
-        'properties': {
-            "upload_time": {'type': 'string', 'format': 'date-time'},
-            "url": {'type': 'string'},
-            "md5_digest": {'type': 'string'},
-            "filename": {'type': 'string'},
-            "path":  {'type': 'string'},
-            "size": {'type': 'integer'}},
-        'required': ['url']}}
+    'type': 'array',
+    'items': {
+        'oneOf': [{'type': 'object',
+                  'additionalProperties': {
+                      'type': 'object',
+                      'properties': {
+                          "filename": {'type': 'string'},
+                          "md5_digest": {'type': 'string'},
+                          "size": {'type': 'integer'},
+                          "upload_time": {'type': 'string', 'format':
+                                          'date-time'},
+                          "url": {'type': 'string'}},
+                      'required': ['filename', 'md5_digest', 'size',
+                                   'upload_time', 'url']}}]}}
 
 
 PACKAGE_RELEASES_SCHEMA = {
@@ -94,7 +97,7 @@ PACKAGES_SCHEMA = {
     'required': ['packages']}
 
 
-def releases_info(versions):
+def releases_info(versions, base_uri=''):
     '''
     Args
     ----
@@ -116,8 +119,9 @@ def releases_info(versions):
     def version_release_info(v):
         file_path = root_directory.joinpath(v.path())
         upload_time = datetime.utcfromtimestamp(file_path.mtime).isoformat()
-        return {'upload_time': upload_time, 'url': str(v.url()),
-                'path': str(v.path()), 'size': file_path.size}
+        return [{'upload_time': upload_time, 'url': base_uri + v.url(),
+                 'size': file_path.size, 'filename': file_path.name,
+                 'md5_digest': file_path.read_hexhash('md5')}]
 
     releases = dict([('%d.%d.%d' % (v.major, v.minor, v.micro),
                       version_release_info(v)) for v in versions])
@@ -142,7 +146,9 @@ def package_releases(version_class, request, package_name):
     '''
     versions = (version_class.objects
                 .filter(publish=True, package__name=package_name))
-    data = {'releases': releases_info(versions)}
+    base_uri = (request.build_absolute_uri()
+                .replace(r'/plugins/%s/json/' % package_name, ''))
+    data = {'releases': releases_info(versions, base_uri=base_uri)}
     # Validation requires Python 2.7+
     # jsonschema.validate(data, PACKAGE_RELEASES_SCHEMA)
     return HttpResponse(json.dumps(data), content_type='application/json')
