@@ -66,3 +66,12 @@ def redirect_to_latest(request, package_name, app_major=0, app_minor=0,
         app_major = 0
     return repository.views.redirect_to_latest(version_class, request,
                                                package_name, app_major)
+
+
+def package_releases(request, package_name):
+    return repository.views.package_releases(version_class, request,
+                                             package_name)
+
+
+def packages(request):
+    return repository.views.packages(version_class, request)
