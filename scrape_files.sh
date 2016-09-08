@@ -14,5 +14,9 @@ PARENT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 UPDATE_SERVER_ROOT=${PARENT_DIR}
 
 cd ${UPDATE_SERVER_ROOT}
+echo "[$(date)] Scraping apps: ${UPDATE_SERVER_ROOT}/app_data..."
 DJANGO_SETTINGS_MODULE=settings python application/scripts/scrape_app_dir.py
+echo "[$(date)] DONE"
+echo "[$(date)] Scraping plugins: ${UPDATE_SERVER_ROOT}/plugin_data..."
 DJANGO_SETTINGS_MODULE=settings python plugins/scripts/scrape_plugins_dir.py directory plugin_data
+echo "[$(date)] DONE"
