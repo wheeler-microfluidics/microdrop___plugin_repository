@@ -3,3 +3,6 @@ settings.py
 app_settings.py
 *.db
 *.tar.gz
+app_data
+plugin_data
+.ropeproject
