@@ -9,7 +9,7 @@ from repository.models import Version, Package
 
 cre_plugin_info = re.compile(r'''
         (?P<name>[a-zA-Z_]+)-
-        (?P<major>\d+)\.(?P<minor>\d+)\.(?P<micro>\d+)
+        (?P<major>\d+)\.(?P<minor>\d+)(\.(?P<micro>\d+))?
         \.tar\.gz''', re.VERBOSE)
 
 

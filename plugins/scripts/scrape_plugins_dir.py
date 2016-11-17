@@ -20,7 +20,7 @@ def process_plugin_archive(plugin_path):
     if match:
         major, minor, micro = (int(match.group('major')),
                                int(match.group('minor')),
-                               int(match.group('micro')))
+                               int(match.group('micro') or 0))
 
         t = tarfile.open(plugin_path)
         properties_path = [path(p) for p in t.getnames()
